@@ -3,7 +3,7 @@ import React from "react";
 
 interface TagProps {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
   clickable?: boolean;
   className?: string;
   filled?: boolean;

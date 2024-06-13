@@ -6,9 +6,7 @@ import tags from "@/lib/tags.json";
 import { FormLabel } from "@/components/ui/form";
 
 interface Tags {
-  categories: {
-    [key: string]: string[];
-  };
+  categories: string[];
 }
 
 interface TagSearchProps {
@@ -30,7 +28,10 @@ const TagSearch: React.FC<TagSearchProps> = ({
 
   return (
     <div>
-      <Input onInput={(event) => setInput(event.currentTarget.value)}></Input>
+      <Input
+        onInput={(event) => setInput(event.currentTarget.value)}
+        placeholder="Search for tags"
+      ></Input>
 
       <div className="flex gap-4 flex-wrap mt-4">
         {Object.keys(selectedTags).map((key) => {
@@ -47,24 +48,25 @@ const TagSearch: React.FC<TagSearchProps> = ({
             </Tag>
           ) : undefined;
         })}
-        {Object.keys(tagsTyped.categories).map((key) => {
-          let filtered = tagsTyped.categories[key].filter(
-            (item: string) => item.startsWith(input) && !selectedTags[item]
-          );
 
-          if (filtered.length > 0 && input != "") {
-            return filtered.map((item) => (
+        {tagsTyped.categories.sort().map((tag, i) => {
+          if (
+            input !== "" &&
+            tag.toLowerCase().startsWith(input.toLowerCase()) &&
+            !selectedTags[tag]
+          ) {
+            return (
               <Tag
                 clickable={true}
-                key={key}
+                key={i}
                 filled={false}
                 onClick={() => {
-                  addTag(item);
+                  addTag(tag);
                 }}
               >
-                {item}
+                {tag}
               </Tag>
-            ));
+            );
           }
         })}
       </div>

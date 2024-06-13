@@ -1,22 +1,18 @@
-"use client"
+"use client";
 
-import React, {createContext, useContext, useState} from "react"
-
-export interface Tag {
-    name: string,
-    color: string
-}
+import React, { createContext, useContext, useState } from "react";
 
 export interface Item {
-    name: string,
-    cost_to_produce: number,
-    minutes_to_make: number,
-    tags: Tag[]
+  name: string;
+  cost_to_produce: number;
+  sell_price: number;
+  minutes_to_make: number;
+  tags: string[];
 }
 
 export interface ItemContext {
-    items: Item[],
-    addItem: (item: Item) => void 
+  items: Item[];
+  addItem: (item: Item) => void;
 }
 
 const ItemContext = createContext<ItemContext | undefined>(undefined);
@@ -24,16 +20,16 @@ const ItemContext = createContext<ItemContext | undefined>(undefined);
 export const useItemContext = () => useContext(ItemContext);
 
 export function Items({ children }: any) {
-    const [items, setItems] = useState<Item[]>([]);
+  const [items, setItems] = useState<Item[]>([]);
 
-    const addItem = (item: Item) => {
-        setItems(prevItems => [...prevItems, item]);
-    };
+  const addItem = (item: Item) => {
+    setItems((prevItems) => [...prevItems, item]);
+  };
 
-    const value = {
-        items,
-        addItem
-    };
+  const value = {
+    items,
+    addItem,
+  };
 
-    return <ItemContext.Provider value={value}>{children}</ItemContext.Provider>
+  return <ItemContext.Provider value={value}>{children}</ItemContext.Provider>;
 }

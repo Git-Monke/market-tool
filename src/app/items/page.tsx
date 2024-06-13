@@ -32,18 +32,18 @@ function CardFromItem(item: Item, i: number) {
       <Separator className="my-4"></Separator>
 
       <div className="flex flex-col gap-4">
-        <p>Price: ${item.cost_to_produce.toFixed(2)}</p>
+        <div className="flex justify-between">
+          <p className="w-1/2">Cost: ${item.cost_to_produce.toFixed(2)}</p>
+          <p className="w-1/2">Price: ${item.sell_price.toFixed(2)}</p>
+        </div>
+
         <p>Time To Produce: {time}</p>
 
         <div className="flex">
           <p className="mr-2">Tags:</p>
           <div className="flex flex-wrap gap-1">
             {item.tags.map((tag, i) => {
-              return (
-                <Tag color={tag.color} key={i}>
-                  {tag.name}
-                </Tag>
-              );
+              return <Tag key={i}>{tag}</Tag>;
             })}
           </div>
         </div>

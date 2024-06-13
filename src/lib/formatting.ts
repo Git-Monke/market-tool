@@ -2,7 +2,17 @@ export function minutesToHumanReadable(minutes: number): string {
     let hours = Math.floor(minutes / 60)
     let leftovers = Math.floor(minutes - (hours * 60))
 
-    return (hours != 0 ? hours + " hours, " : "") + (leftovers != 0 ? leftovers + " minutes" : "")
+    if (hours && leftovers > 0) {
+        return `${hours} hours, ${leftovers} minutes`
+    }
+
+    if (hours && leftovers === 0) {
+        return `${hours} hours`
+    }
+
+    if (hours === 0 && leftovers !== 0) {
+        return `${leftovers} minutes`
+    }
 }
 
 export function stringToColor(str: string) {
